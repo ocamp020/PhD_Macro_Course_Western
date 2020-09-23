@@ -1,10 +1,10 @@
-###**Git Repository for Advanced Macroeconomics II**
+#**Git Repository for Advanced Macroeconomics II**#
 
-##**Instructor:** Sergio Ocampo
+##**Instructor:** Sergio Ocampo##
 
-##**Institution:** Western University
+##**Institution:** Western University##
 
-##**Contact:** socampod@uwo.ca
+##**Contact:** socampod@uwo.ca##
 
 This repository contains the material for the advanced macroeconomics course at Western University.
 
