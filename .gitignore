@@ -3,3 +3,4 @@ Materials
 \#*
 *.lyx
 *.lyx~
+.DS_Store
