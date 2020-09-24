@@ -165,7 +165,6 @@ end
             V_new, G_kp, G_c = T(V_old)
             # Update distance and iterations
             V_dist = maximum(abs.(V_new./V_old.-1))
-            iter  += 1
             # Update old function
             V_old  = V_new
             # Report progress
