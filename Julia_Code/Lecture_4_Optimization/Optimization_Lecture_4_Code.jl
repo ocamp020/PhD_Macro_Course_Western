@@ -461,7 +461,7 @@ function T_cts_root(M::Model)
             # println("Interpolation test: Obj_Fun(k_min)=",Obj_Fun(k_grid[1])," Obj_Fun(k/2)=",Obj_Fun((k_grid[1]+k_grid[end])/2)," Vp(k_min)=",Vp(k_grid[1]))
             # println("Interpolation test: dObj_Fun(k_min)=",d_Obj_Fun(k_grid[1])," dObj_Fun(k/2)=",d_Obj_Fun((k_grid[1]+k_grid[end])/2)," dVp(k_min)=",dVp(k_grid[1]))
         # Min and max kp given current k
-        kp_min = 1.001*k_grid[1]
+        kp_min = 1.001*k_grid[1] # We set the lowest point just above k_grid[1] to allow numerical derivative of Vp. dVp(k_grid[1])=NaN
         kp_max = min( z*k_grid[i]^α - c_min , k_grid[end] )
         # println("\n dObj_Fun=$(d_Obj_Fun.(range(kp_min,kp_max,length=15)))")
             # Note: we can be smarter here.
