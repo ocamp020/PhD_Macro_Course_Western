@@ -28,6 +28,8 @@ Problem sets and other assignments are located in the "Problem_Sets" folder.<br/
   - Curved grids
   - Problem set with applications of interpolation methods
 4. Optimization
-  - Local vs Global optimizers
+  - Local optimizers
+  - Global optimizers
+  - Sobol numbers 
   - Root finding
-  - VFI with continuous choice variables and continuous states 
+  - VFI with continuous choice variables and continuous states
