@@ -27,3 +27,7 @@ Problem sets and other assignments are located in the "Problem_Sets" folder.<br/
   - Spline interpolation (linear, cubic and shape preserving splines)
   - Curved grids
   - Problem set with applications of interpolation methods
+4. Optimization
+  - Local vs Global optimizers
+  - Root finding
+  - VFI with continuous choice variables and continuous states 
