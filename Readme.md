@@ -15,7 +15,7 @@ Problem sets and other assignments are located in the "Problem_Sets" folder.<br/
 
 ## Lecture List
 
-1. Course overview and best practices
+1. Course overview and best practices [Slides](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Slides/PhD_Macro_Comp_1_Handout.pdf), [Problem Set](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Problem_Sets/Problem_Set_1.pdf)
   - Problem set on dynamic programming with the neoclassical growth model
 2. Value function iteration
   - Grid search algorithm
@@ -30,6 +30,6 @@ Problem sets and other assignments are located in the "Problem_Sets" folder.<br/
 4. Optimization
   - Local optimizers
   - Global optimizers
-  - Sobol numbers 
+  - Sobol numbers
   - Root finding
   - VFI with continuous choice variables and continuous states
