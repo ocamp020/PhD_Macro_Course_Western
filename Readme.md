@@ -33,7 +33,7 @@ Problem sets and other assignments are located in the "Problem_Sets" folder.<br/
   - Sobol numbers
   - Root finding
   - VFI with continuous choice variables and continuous states
-5. Integration
+5. Integration [Slides](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Slides/PhD_Macro_Comp_5_Handout.pdf)//[Problem Set](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Problem_Sets/Problem_Set_5.pdf)
   - Monte Carlo Integration (just the concept)
   - Gaussian quadrature methods
   - Discretizing stochastic processes
