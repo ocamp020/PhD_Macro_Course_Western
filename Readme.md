@@ -33,3 +33,17 @@ Problem sets and other assignments are located in the "Problem_Sets" folder.<br/
   - Sobol numbers
   - Root finding
   - VFI with continuous choice variables and continuous states
+5. Integration
+  - Monte Carlo Integration (just the concept)
+  - Gaussian quadrature methods
+  - Discretizing stochastic processes
+    * Tauchen (1986)
+    * Tauchen & Hussey (1991)
+    * Rouwenhorst (1995)
+    * Gaussian mixtures (the basics)
+    * Extensions (Galindev & Lkhagvasuren, 2010; Fella, Gallipoli & Pan, 2019)
+6. The Endogenous Grid Method (EGM)
+  - Basic EGM: Carroll (2006)
+  - EGM with labor supply: Barillas & Fernandez-Villaverde (2007)
+  - EGM for non-smooth, non-concave problems: Fella (2014)
+  - Envelope condition method (ECM): Maliar & Maliar (2013)
