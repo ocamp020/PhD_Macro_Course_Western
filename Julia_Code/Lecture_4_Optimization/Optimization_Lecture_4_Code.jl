@@ -182,13 +182,18 @@ end
 #-----------------------------------------------------------
 #-----------------------------------------------------------
 # Grid
-    function Make_K_Grid(n_k,θ_k,p::Par)
+    function Make_K_Grid(n_k,θ_k,p::Par,scale_type="Poly")
         # Get SS
         k_ss,y_ss,c_ss,r_ss,w_ss = SS_values(p)
         # Get k_grid
         if θ_k≠1
-        # k_grid = ExpRange(1E-5,2*k_ss;θ=θ_k,N=n_k) ; # Curved grid between 0 and 2*k_ss
-        k_grid = PolyRange(1E-5,2*k_ss;θ=θ_k,N=n_k) ; # Curved grid between 0 and 2*k_ss
+            if scale_type=="Poly"
+            k_grid = PolyRange(1E-5,2*k_ss;θ=θ_k,N=n_k) ; # Curved grid between 0 and 2*k_ss
+            elseif scale_type=="Exp"
+            # k_grid = ExpRange(1E-5,2*k_ss;θ=θ_k,N=n_k) ; # Curved grid between 0 and 2*k_ss
+            else
+            error("scale_type must be either Poly or Exp")
+            end
         else
         k_grid = range(1E-5,2*k_ss,length=n_k)
         end
