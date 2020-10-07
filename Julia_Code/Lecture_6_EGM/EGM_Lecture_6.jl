@@ -63,11 +63,11 @@ println(" ")
         # Steady State Values
         k_ss = (p.β*p.α*p.z_bar/(1-p.β*(1-p.δ)))^(1/(1-p.α))
         # Capital Grid
-        θ_k::Float64    = 1.5                         # Curvature of k_grid
+        θ_k::Float64    = 1.5                        # Curvature of k_grid
         n_k::Int64      = 500                       # Size of k_grid
         n_k_fine::Int64 = 1000                      # Size of fine grid for interpolation
-        k_grid          = Make_Grid(n_k     ,θ_k,1E-5,4*k_ss)  # k_grid for model solution
-        k_grid_fine     = Make_Grid(n_k_fine,1  ,1E-5,4*k_ss)  # Fine grid for interpolation
+        k_grid          = Make_Grid(n_k     ,θ_k,1E-5,2*k_ss)  # k_grid for model solution
+        k_grid_fine     = Make_Grid(n_k_fine,1  ,1E-5,2*k_ss)  # Fine grid for interpolation
         # Productivity process
         n_z       = 5                               # Size of z_grid
         MP_z      = Rouwenhorst95(p.ρ,p.σ,n_z)      # Markov Process for z
@@ -202,7 +202,7 @@ end
 function Euler_Eq(kp,i_z::Int64,i_k::Int64,Vk,M::Model)
     # Return percentage error in Euler equation
     @unpack p, MP_z, n_z, k_grid = M
-    @unpack z_bar, α, β, δ = p
+    @unpack β = p
     # Compute left hand side of Euler equation
     LHS = d_utility(exp(MP_z.grid[i_z]),k_grid[i_k],kp,p)
     # Compute right hand side of Euler equation
@@ -265,11 +265,11 @@ function VFI_Fixed_Point(T::Function,M::Model,V_old=nothing)
             G_c_fine  = zeros(n_z,n_k_fine)
             for i_z=1:n_z
             V_ip    = ScaledInterpolations(k_grid,V_new[i_z,:], BSpline(Cubic(Line(OnGrid()))))
-                V_fine[i_z,:]   = V_ip.(collect(k_grid_fine))
+                V_fine[i_z,:]   .= V_ip.(collect(k_grid_fine))
             G_kp_ip = ScaledInterpolations(k_grid,G_kp[i_z,:] , BSpline(Cubic(Line(OnGrid()))))
-                G_kp_fine[i_z,:] = G_kp_ip.(collect(k_grid_fine))
+                G_kp_fine[i_z,:].= G_kp_ip.(collect(k_grid_fine))
             G_c_ip  = ScaledInterpolations(k_grid,G_c[i_z,:]  , BSpline(Cubic(Line(OnGrid()))))
-                G_c_fine[i_z,:]  = G_c_ip.(collect(k_grid_fine))
+                G_c_fine[i_z,:] .= G_c_ip.(collect(k_grid_fine))
             end
             # Update model
             M = Model(M; V=V_new,G_kp=G_kp,G_c=G_c,V_fine=V_fine,G_kp_fine=G_kp_fine,G_c_fine=G_c_fine)
@@ -292,7 +292,7 @@ end
 function VFI_Graphs(M::Model,VFI_Type)
     gr()
     # Value Function
-        plt = plot(title="Value Function - n_k=$(M.n_k) - θ_k=$(M.θ_k)",legend=(0.75,0.2),foreground_color_legend = nothing,background_color_legend = nothing)
+        plt = plot(title="Value Function - n_k=$(M.n_k) - θ_k=$(M.θ_k)",legend=:bottomright,foreground_color_legend = nothing,background_color_legend = nothing)
         for i_z=1:M.n_z
         plot!(M.k_grid,M.V[i_z,:],linetype=:scatter,label="V(z_$i_z)")
         plot!(M.k_grid_fine,M.V_fine[i_z,:],linewidth=2.5,linestyle=(:dash),linecolor=RGB(0.4,0.4,0.4),label=nothing)
@@ -301,8 +301,8 @@ function VFI_Graphs(M::Model,VFI_Type)
         ylabel!("Value")
         savefig("./Figures/VFI_"*VFI_Type*"_V_$(M.n_k)_$(M.θ_k).pdf")
     # Capital Policy Function Analytical vs 200
-        plt = plot(title="Policy Function - K - n_k=$(M.n_k) - θ_k=$(M.θ_k)",legend=(0.75,0.2),foreground_color_legend = nothing,background_color_legend = nothing)
-        plot(M.k_grid_fine,M.k_grid_fine,lw=1,linecolor=RGB(0.6,0.6,0.6),label=nothing)
+        plt = plot(title="Policy Function - K - n_k=$(M.n_k) - θ_k=$(M.θ_k)",legend=:bottomright,foreground_color_legend = nothing,background_color_legend = nothing)
+        plot!(M.k_grid_fine,M.k_grid_fine,lw=1,linecolor=RGB(0.6,0.6,0.6),label=nothing)
         for i_z=1:M.n_z
         plot!(M.k_grid,M.G_kp[i_z,:],linetype=:scatter,label="G_kp(z_$i_z)")
         plot!(M.k_grid_fine,M.G_kp_fine[i_z,:],linewidth=2.5,linestyle=(:dash),linecolor=RGB(0.4,0.4,0.4),label=nothing)
@@ -311,8 +311,8 @@ function VFI_Graphs(M::Model,VFI_Type)
         ylabel!("Capital")
     savefig("./Figures/VFI_"*VFI_Type*"_G_kp_$(M.n_k)_$(M.θ_k).pdf")
         # Euler Error 200
-        plt = plot(title="Euler Equation Error (%) - n_k=$(M.n_k) - θ_k=$(M.θ_k)",legend=(0.75,0.2),foreground_color_legend = nothing,background_color_legend = nothing)
-        plot(M.k_grid_fine,zeros(M.n_k_fine),lw=1,linecolor=RGB(0.6,0.6,0.6))
+        plt = plot(title="Euler Equation Error (%) - n_k=$(M.n_k) - θ_k=$(M.θ_k)",legend=:bottomright,foreground_color_legend = nothing,background_color_legend = nothing)
+        plot!(M.k_grid_fine,zeros(M.n_k_fine),lw=1,linecolor=RGB(0.6,0.6,0.6))
         for i_z=1:M.n_z
         plot!(M.k_grid_fine,M.Euler[i_z,:],linetype=:scatter,label="z_$i_z")
         end
@@ -348,12 +348,12 @@ function T_EGM(M::Model)
     for i_z=1:n_z
         # EV_ip      = ScaledInterpolations(k_grid,EV[i_z,:], BSpline(Cubic(Line(OnGrid()))))
         # dEV_ip(x)  = ForwardDiff.derivative(EV_ip,x)
-        # dEV[i_z,:] = dEV_ip.(k_grid)
+        # dEV[i_z,:].= dEV_ip.(k_grid)
         # EV_ip      = Spline1D(k_grid,EV[i_z,:])
-        # dEV[i_z,:] = derivative(EV_ip, k_grid )
+        # dEV[i_z,:].= derivative(EV_ip, k_grid )
         EV_ip      = ScaledInterpolations(k_grid,EV[i_z,:], FritschButlandMonotonicInterpolation())
         dEV_ip(x)  = ForwardDiff.derivative(EV_ip,x)
-        dEV[i_z,:] = dEV_ip.(k_grid)
+        dEV[i_z,:].= dEV_ip.(k_grid)
         # println("\n i_z=$i_z, dEV=$(dEV[i_z,:]) \n")
     end
     # Check Monotonicity
@@ -375,8 +375,8 @@ function T_EGM(M::Model)
         # Sort Y_endo for interpolation
         for i_z=1:n_z
         sort_ind = sortperm(Y_endo[i_z,:])
-        Y_endo[i_z,:] = Y_endo[i_z,:][sort_ind]
-        C_endo[i_z,:] = C_endo[i_z,:][sort_ind]
+        Y_endo[i_z,:] .= Y_endo[i_z,:][sort_ind]
+        C_endo[i_z,:] .= C_endo[i_z,:][sort_ind]
         end
     # Define value function on endogenous grid
     V_endo = utility(C_endo,p) .+ EV
@@ -384,11 +384,11 @@ function T_EGM(M::Model)
     for i_z=1:n_z
         # V_ip        = ScaledInterpolations(Y_endo[i_z,:],V_endo[i_z,:], BSpline(Cubic(Line(OnGrid()))))
         V_ip        = Spline1D(Y_endo[i_z,:],V_endo[i_z,:])
-        V[i_z,:]    = V_ip.(Y_grid[i_z,:])
+        V[i_z,:]   .= V_ip.(Y_grid[i_z,:])
         # C_ip        = ScaledInterpolations(Y_endo[i_z,:],C_endo[i_z,:], BSpline(Cubic(Line(OnGrid()))))
         C_ip        = Spline1D(Y_endo[i_z,:],C_endo[i_z,:])
-        G_c[i_z,:]  = C_ip.(Y_grid[i_z,:])
-        G_kp[i_z,:] = Y_grid[i_z,:] - G_c[i_z,:]
+        G_c[i_z,:] .= C_ip.(Y_grid[i_z,:])
+        G_kp[i_z,:].= Y_grid[i_z,:] .- G_c[i_z,:]
     end
     # Return Results
         # println("T(V) = $V")
@@ -411,10 +411,13 @@ function T_ECM(M::Model)
         for i_z=1:n_z
             V_ip      = ScaledInterpolations(k_grid,V[i_z,:], FritschButlandMonotonicInterpolation())
             Vk_ip(x)  = ForwardDiff.derivative(V_ip,x)
-            Vk[i_z,:] = Vk_ip.(k_grid)
+            Vk[i_z,:].= Vk_ip.(k_grid)
             # V_ip      = Spline1D(k_grid,V[i_z,:])
-            # Vk[i_z,:] = derivative(V_ip, k_grid )
+            # Vk[i_z,:].= derivative(V_ip, k_grid )
             # println("\n i_z=$i_z, Vk=$(Vk[i_z,:]) \n")
+            # V_ip, dV_ip = spline_NR(collect(k_grid),V[i_z,:])
+            # Vk[i_z,:]  .= dV_ip.(collect(k_grid))
+
         end
     # Optioin 2: Get Vk from V (the program actually receives Vk)
         # Vk = V
@@ -425,18 +428,25 @@ function T_ECM(M::Model)
             end
             error("Vk must be positive for ECM to work")
         end
+    # # Check for maximum allowable consumption
+    #     Vk .= max.(d_utility(Y_grid.-k_grid[1],p).*MPk_mat,Vk)
     # Define consumption from envelope condition
     G_c  = d_utility_inv(Vk./MPk_mat,p)
     # Define savings from budget  constraint
-    G_kp = Y_grid .- G_c
-        # # Check for index of
-        # for ind = findall(<=(k_grid[1]),G_kp)
-        #     k_max     = Y_grid[ind] - p.c_min
-        #     G_kp[ind] = optimize(x->Euler_Eq(x,ind[1],ind[2],Vk,M),k_grid[1],k_max)
-        # end
-         # Check for non-negativity (actually bounded by min grid point to avoid extrapolations)
-        G_kp = min.(max.(k_grid[1],G_kp),k_grid[end])
-        G_c  = Y_grid .- G_kp
+    G_kp.= Y_grid .- G_c
+        # Solve manually if capital is out of bounds
+        for ind = findall(<=(k_grid[1]),G_kp)
+            # Minimize square of Euler Error
+            k_max      = Y_grid[ind] - p.c_min
+            min_result = optimize(x->Euler_Eq(x,ind[1],ind[2],Vk,M),k_grid[1],k_max)
+            # Check result
+            converged(min_result) || error("Failed to solve Euler Equation in $(iterations(min_result)) iterations")
+            # Upddate policy function
+            G_kp[ind]  = min_result.minimizer
+        end
+        # Check for non-negativity (actually bounded by min grid point to avoid extrapolations)
+        G_kp.= min.(max.(k_grid[1],G_kp),k_grid[end])
+        G_c .= Y_grid .- G_kp
         # Vk    = d_utility(G_c,p).*MPk_mat
     # Define expectation of value function for each (z,k')
     EV = zeros(n_z,n_k) # E[V(z',k'(z,k))|z]
@@ -446,16 +456,15 @@ function T_ECM(M::Model)
         for i_zp=1:n_z
             # Define interpolated value at (z',G_kp(z,k))
             V_ip       = ScaledInterpolations(k_grid,V[i_zp,:], FritschButlandMonotonicInterpolation())
-            Vp[i_zp,:] = V_ip.(kp)
+            Vp[i_zp,:].= V_ip.(kp)
         end
         EV[i_z,:] = MP_z.Π[i_z,:]'*Vp # Rows are present z and columns are future k as in k'=G_kp(z,k)
     end
-    # # Update Vk
-    # V    = β*MPk_mat.*EV
-    # a    = maximum(abs.(V./Vk.-1))
-    # println(a)
-    # Update V
-    V = utility(G_c,p) .+ β*EV
+    # Update value
+        # Option 1: Update value function
+        V.= utility(G_c,p) .+ β*EV
+        # Option 2: Update derivative of value function
+        # V = β*MPk_mat.*EV
     # Return Results
         # println("T(V) = "); display(V)
         # stop
@@ -471,11 +480,13 @@ end
 # Execute VFI and plot graphs
 
 # Execute Numerical VFI - EGM
+    println("===============================================\n Solving VFI with EGM")
     @time M_EGM  = VFI_Fixed_Point(T_EGM,Model())
     # Graphs
         VFI_Graphs(M_EGM,"EGM")
 
 # Execute Numerical VFI - ECM
+    println("===============================================\n Solving VFI with ECM")
     # Initial value
     s_0  = p.β*p.α
     C_0  = (1-s_0)*M.Y_grid
@@ -483,7 +494,7 @@ end
     V_0  = (1/(1-p.β))*utility(C_0,p)
     # V_0  = copy(M_EGM.V)
     # V_0 = d_utility(M_EGM.G_c,p).*M.MPk_mat
-    println("V_0="); display(V_0)
+    # println("V_0="); display(V_0)
     @time M_ECM  = VFI_Fixed_Point(T_ECM,Model(),V_0)
     # Graphs
         VFI_Graphs(M_ECM,"ECM")
