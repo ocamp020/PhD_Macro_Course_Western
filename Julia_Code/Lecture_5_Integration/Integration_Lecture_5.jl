@@ -66,7 +66,7 @@ Random.seed!(3486);
         # PDF_z, CDF_z - Stationary distribution of z
 function Tauchen86(ρ,σ,N,Ω::Any=3)
     # Create z grid
-        z = range(-Ω*σ,Ω*σ,length=N)
+        z = range(-Ω*σ/sqrt(1-ρ^2),Ω*σ/sqrt(1-ρ^2),length=N)
     # Define intermediate step length
         h = (z[2]-z[1])/2
     # Define auxiliary matrices

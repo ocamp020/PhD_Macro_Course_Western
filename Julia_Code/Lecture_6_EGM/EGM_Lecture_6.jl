@@ -390,6 +390,19 @@ function T_EGM(M::Model)
         G_c[i_z,:] .= C_ip.(Y_grid[i_z,:])
         G_kp[i_z,:].= Y_grid[i_z,:] .- G_c[i_z,:]
     end
+    # Solve manually if capital is out of bounds
+    for ind = findall(<=(k_grid[1]),G_kp)
+        # Minimize square of Euler Error
+        k_max      = Y_grid[ind] - p.c_min
+        min_result = optimize(x->Euler_Eq(x,ind[1],ind[2],Vk,M),k_grid[1],k_max)
+        # Check result
+        converged(min_result) || error("Failed to solve Euler Equation in $(iterations(min_result)) iterations")
+        # Upddate policy function
+        G_kp[ind]  = min_result.minimizer
+        G_c[ind]   = Y_grid[ind] - G_kp[ind]
+        EV_ip      = ScaledInterpolations(k_grid,EV[ind[1],:], FritschButlandMonotonicInterpolation())
+        V[ind]     = utility(G_c[ind],p) + EV_ip(G_kp[ind])
+    end
     # Return Results
         # println("T(V) = $V")
         # stop
