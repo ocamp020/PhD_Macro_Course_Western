@@ -646,7 +646,7 @@ function Make_Grid(n,θ_x,x_min,x_max,scale_type="Poly")
         if scale_type=="Poly"
         x_grid = PolyRange(x_min,x_max;θ=θ_x,N=n) ; # Curved grid between x_min and x_max
         elseif scale_type=="Exp"
-        # x_grid = ExpRange(x_min,x_max;θ=θ_x,N=n) ; # Curved grid between x_min and x_max
+        x_grid = ExpRange(x_min,x_max;θ=θ_x,N=n) ; # Curved grid between x_min and x_max
         else
         error("scale_type must be either Poly or Exp")
         end
