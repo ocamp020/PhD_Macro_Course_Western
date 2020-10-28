@@ -42,8 +42,14 @@ Problem sets and other assignments are located in the "Problem_Sets" folder.<br/
     * Rouwenhorst (1995)
     * Gaussian mixtures (the basics)
     * Extensions (Galindev & Lkhagvasuren, 2010; Fella, Gallipoli & Pan, 2019)
-6. The Endogenous Grid Method (EGM)
+6. The Endogenous Grid Method (EGM) [Slides](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Slides/PhD_Macro_Comp_6_Handout.pdf)//[Problem Set](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Problem_Sets/Problem_Set_6.pdf)
   - Basic EGM: Carroll (2006)
   - EGM with labor supply: Barillas & Fernandez-Villaverde (2007)
   - EGM for non-smooth, non-concave problems: Fella (2014)
   - Envelope condition method (ECM): Maliar & Maliar (2013)
+7. Recursive Competitive Equilibria (RCE) [Slides](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Slides/PhD_Macro_Comp_7_Handout.pdf)//[Problem Set](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Problem_Sets/Problem_Set_7.pdf)
+    - Decentralized solution to NGM
+    - Definition of RCE
+    - Applications to economies with distortions (taxes/wedges)
+    - Overview of Chari, Kehoe & McGrattan (2007)
+    - Overview of Arellano (2008)
