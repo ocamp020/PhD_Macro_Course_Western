@@ -53,3 +53,10 @@ Problem sets and other assignments are located in the "Problem_Sets" folder.<br/
   - Applications to economies with distortions (taxes/wedges)
   - Overview of Chari, Kehoe & McGrattan (2007)
   - Overview of Arellano (2008)
+7. Heterogeneous Agent Models (RCE) [Slides](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Slides/PhD_Macro_Comp_8_Handout.pdf)//[Problem Set](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Problem_Sets/Problem_Set_8.pdf)
+  - Hugget (1993)
+  - Aiyagari (1994)
+  - OLG - Aiyagari
+  - Histogram method of Young (2010)
+  - Fast Kernel method of Tan (2020)
+  - Multithreading in Julia

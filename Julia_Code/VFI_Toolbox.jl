@@ -635,6 +635,7 @@ end
 #-----------------------------------------------------------
 #-----------------------------------------------------------
     # Make_Grid: makes curved grid, uses ScaledInterpolation
+    # Grid_Inv: gets index of closest node in grid
     # mnbrak: Bracket a minimum for a one-diimensional function expanding an orignal interval [a,b]
 
 #-----------------------------------------------------------
@@ -655,6 +656,35 @@ function Make_Grid(n,θ_x,x_min,x_max,scale_type="Poly")
     end
     # Return
     return x_grid
+end
+
+
+#-----------------------------------------------------------
+#-----------------------------------------------------------
+# Grid_Inv
+function Grid_Inv(x,n,θ_x,x_min,x_max,scale_type="Poly")
+
+    # Check corner solution
+    if x<x_min
+        x_ind = 1
+    elseif x>x_max
+        x_ind = n
+    else
+    # Get index of x in grid if x∈[x_min,x_max]
+        if θ_x≠1
+            if scale_type=="Poly"
+            x_ind  = Int(floor(((x.-x_min)/(x_max-x_min)).^(1/θ_x) *(n-1)+1))
+            elseif scale_type=="Exp"
+            x_ind  = Int(floor( (1/θ_x).*log.(((x-x_min)*(exp(θ_x)-1)/(x_max-x_min)).+1) *(n-1)+1))
+            else
+            error("scale_type must be either Poly or Exp")
+            end
+        else
+        x_ind = Int(floor(((x-x_min)/(x_max-x_min))*(n-1)+1))
+        end
+    end
+    # Return
+    return x_ind
 end
 
 
