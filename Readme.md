@@ -53,10 +53,15 @@ Problem sets and other assignments are located in the "Problem_Sets" folder.<br/
   - Applications to economies with distortions (taxes/wedges)
   - Overview of Chari, Kehoe & McGrattan (2007)
   - Overview of Arellano (2008)
-7. Heterogeneous Agent Models (RCE) [Slides](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Slides/PhD_Macro_Comp_8_Handout.pdf)//[Problem Set](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Problem_Sets/Problem_Set_8.pdf)
+8. Heterogeneous Agent Models (RCE) [Slides](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Slides/PhD_Macro_Comp_8_Handout.pdf)//[Problem Set](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Problem_Sets/Problem_Set_8.pdf)
   - Hugget (1993)
   - Aiyagari (1994)
   - OLG - Aiyagari
   - Histogram method of Young (2010)
   - Fast Kernel method of Tan (2020)
-  - Multithreading in Julia
+9. Computational methods for continuous time models
+  - Heterogeneous Agent Continuous Time model
+  - Finite Difference Method
+    - We will follow Ben Moll's lecture notes [Slides 1](https://benjaminmoll.com/wp-content/uploads/2019/07/Lecture1_Rochester.pdf)//[Slides 2](https://benjaminmoll.com/wp-content/uploads/2019/07/Lecture2_Rochester.pdf)//[Paper](https://benjaminmoll.com/wp-content/uploads/2019/07/HACT.pdf)//[Other resources](https://benjaminmoll.com/lectures/)
+  - Markov Chain Approximation Method
+    - We will follow Eslami & Phelan (2020)
