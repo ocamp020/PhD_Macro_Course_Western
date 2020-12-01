@@ -65,3 +65,6 @@ Problem sets and other assignments are located in the "Problem_Sets" folder.<br/
     - We will follow Ben Moll's lecture notes [Slides 1](https://benjaminmoll.com/wp-content/uploads/2019/07/Lecture1_Rochester.pdf)//[Slides 2](https://benjaminmoll.com/wp-content/uploads/2019/07/Lecture2_Rochester.pdf)//[Paper](https://benjaminmoll.com/wp-content/uploads/2019/07/HACT.pdf)//[Other resources](https://benjaminmoll.com/lectures/)
   - Markov Chain Approximation Method
     - We will follow Eslami & Phelan (2020)
+9. Search models I [Slides](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Slides/PhD_Macro_Comp_9_Handout.pdf)//[Problem Set](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Problem_Sets/Problem_Set_9.pdf)
+  - Basic McCall (1970) model
+  - Extensions to job separations, on the job search, human capital, savings
