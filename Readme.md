@@ -68,3 +68,8 @@ Problem sets and other assignments are located in the "Problem_Sets" folder.<br/
 9. Search models I [Slides](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Slides/PhD_Macro_Comp_9_Handout.pdf)//[Problem Set](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Problem_Sets/Problem_Set_9.pdf)
   - Basic McCall (1970) model
   - Extensions to job separations, on the job search, human capital, savings
+10. Search models II [Slides](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Slides/PhD_Macro_Comp_10_Handout.pdf)//[Problem Set](https://github.com/ocamp020/PhD_Macro_Course_Western/blob/master/Problem_Sets/Problem_Set_10.pdf)
+  - Basic DMP model
+  - Shimer (2005), overview of main results
+  - How to solve the DMP model
+  - How to simulate models in continuous time with Poisson shocks
