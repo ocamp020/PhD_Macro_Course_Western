@@ -581,3 +581,26 @@ println("Value Function Iteration - MacQueen-Porteus Bounds")
     # Graphs
     VFI_Type = "MPB"
     include("./VFI_Graphs.jl")
+
+
+
+
+ 
+#-----------------------------------------------------------
+#-----------------------------------------------------------
+# Caution with Euler Errors 
+    # Possible scenarios 
+    x_vec = range(-1,1,1000)
+    gr() 
+    plot( )
+
+gr()
+    G_kp_a, G_c_a = G_analytical(k_grid,p)
+    # Euler error of numerical policy function on grid
+    Euler = zeros(n_k)
+    for i=1:n_k
+        k   = k_grid[i]
+        kp  = k_grid[G_kp[i]]
+        kpp = k_grid[G_kp[G_kp[i]]]
+        Euler[i] = Euler_Error(k,kp,kpp,p)
+    end
